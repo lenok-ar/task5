@@ -31,12 +31,16 @@ namespace task5
                 string textFile = File.ReadAllText(passFile);
                 Console.WriteLine("\nСодержимое файла до изменений: \n{0}\n", textFile);
 
-                string[] words = textFile.Split(new char[] { ' ', '\r', '\n', ',', '.', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
-                for (int word = 0; word < words.Length; ++word)
+                //string[] words = textFile.Split(new char[] { ' ', '\r', '\n', ',', '.', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries); 
+                List<string> words = Regex.Split(textFile, @"(\W+)").ToList();
+                for (int word = 0; word < words.Count; ++word)
                 {
-                    words[word] = CorrectWord(words[word]);              
+                    if (!Regex.IsMatch(words[word], @"^\W+$"))
+                    {
+                        words[word] = CorrectWord(words[word]);
+                    }                              
                 }
-                textFile = string.Join(" ", words);
+                textFile = string.Join("", words);
 
                 string pattern = @"\(\d{3}\)\s\d{3}-\d{2}-\d{2}";
                 textFile = Regex.Replace(textFile, pattern, "+380 $&".Replace("(0", "").Replace(") ", " ").Replace("-", " "));
