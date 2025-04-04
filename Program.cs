@@ -18,14 +18,14 @@ namespace task5
 
             public string CorrectWord(string word)
             {
-                if (incorrectWords.ContainsKey(word))
+                foreach (var w in incorrectWords)
                 {
-                    return incorrectWords[word];
+                    if (incorrectWords.ContainsKey(word))
+                    {
+                        return incorrectWords[word];
+                    }
                 }
-                else
-                {
-                    return word;
-                }
+                return word;              
             }
 
             public void GetAndCorrectFile(string passFile)
@@ -33,6 +33,13 @@ namespace task5
                 string textFile = File.ReadAllText(passFile);
                 Console.WriteLine("Содержимое файла до изменений: {0}", textFile);
 
+                string[] words = textFile.Split(new char[] { ' ', '\r', '\n', ',', '.', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int word = 0; word < words.Length; ++word)
+                {
+                    words[word] = CorrectWord(words[word]);              
+                }
+                textFile = string.Join(" ", words);
+                Console.WriteLine("Содержимое файла после изменений: {0}", textFile);
             }
         }
 
