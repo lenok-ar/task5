@@ -26,12 +26,11 @@ namespace task5
                 return word;              
             }
 
-            public void GetAndCorrectFile(string passFile)
+            public void GetAndCorrectFile(string pathFile)
             {
-                string textFile = File.ReadAllText(passFile);
+                string textFile = File.ReadAllText(pathFile);
                 Console.WriteLine("\nСодержимое файла до изменений: \n{0}\n", textFile);
 
-                //string[] words = textFile.Split(new char[] { ' ', '\r', '\n', ',', '.', ';', ':', '!', '?' }, StringSplitOptions.RemoveEmptyEntries); 
                 List<string> words = Regex.Split(textFile, @"(\W+)").ToList();
                 for (int word = 0; word < words.Count; ++word)
                 {
@@ -44,6 +43,8 @@ namespace task5
 
                 string pattern = @"\(\d{3}\)\s\d{3}-\d{2}-\d{2}";
                 textFile = Regex.Replace(textFile, pattern, "+380 $&".Replace("(0", "").Replace(") ", " ").Replace("-", " "));
+
+                File.WriteAllText(pathFile, textFile);
 
                 Console.WriteLine("Содержимое файла после изменений: \n{0}", textFile);
             }
