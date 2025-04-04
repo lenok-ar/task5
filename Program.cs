@@ -27,11 +27,22 @@ namespace task5
                     return word;
                 }
             }
+
+            public void GetAndCorrectFile(string passFile)
+            {
+                string textFile = File.ReadAllText(passFile);
+                Console.WriteLine("Содержимое файла до изменений: {0}", textFile);
+
+            }
         }
 
         public static void Main(string[] args)
         {
+            SpellingCorrector corrector = new SpellingCorrector();
+            Console.Write("Введите путь к файлу: ");
+            string pathFile = Console.ReadLine();
             
+            corrector.GetAndCorrectFile(pathFile);
         }
     }
 }
