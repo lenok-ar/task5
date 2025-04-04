@@ -17,13 +17,10 @@ namespace task5
             };
 
             public string CorrectWord(string word)
-            {
-                foreach (var w in incorrectWords)
+            {                
+                if (incorrectWords.ContainsKey(word))
                 {
-                    if (incorrectWords.ContainsKey(word))
-                    {
-                        return incorrectWords[word];
-                    }
+                    return incorrectWords[word];
                 }
                 return word;              
             }
