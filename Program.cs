@@ -15,6 +15,23 @@ namespace task5
                 { "здрасте", "здравствуйте" },
                 { "здаров", "здравствуйте" }
             };
+
+            public string CorrectWord(string word)
+            {
+                if (incorrectWords.ContainsKey(word))
+                {
+                    return incorrectWords[word];
+                }
+                else
+                {
+                    return word;
+                }
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            
         }
     }
 }
